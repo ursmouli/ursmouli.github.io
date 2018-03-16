@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./app-data.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $('#alterButton').click(function() {
             alert('Hello');
         });
 
-        $.getJSON('./app-data.json', function( data ) {
+        $.getJSON(jsonData, function( data ) {
             var items = [];
             $.each(data, function(key, value) {
                 items.push("<li id='" + key + "'>" + val + "</li>");
