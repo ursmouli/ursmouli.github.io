@@ -5,14 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
-    function showAlert() {
-        alert('Hello');
-    }
+    $(document).ready(function() {
+        $('#alterButton').click(function() {
+            alert('Hello');
+        });
+
+        $.getJSON('./app-data.json', function( data ) {
+            var items = [];
+            $.each(data, function(key, value) {
+                items.push("<li id='" + key + "'>" + val + "</li>");
+            });
+
+            $("<ul/>", {
+                "class": "my-new-list",
+                html: items.join( "" )
+            }).appendTo("body");
+        });
+    });
     </script>
 </head>
 <body>
     <h2>Java Developer Reference</h2>
-    <button onclick="showAlert()">Click Me</button>
+    <button id="alterButton" onclick="showAlert()">Click Me</button>
+    <br/>
 </body>
 </html>
