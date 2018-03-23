@@ -18,6 +18,15 @@ var appNavJson = [
     {
         name: 'Hibernate',
         link: './hibernate.html'
+    },
+    {
+        name: 'Examples',
+        links: [
+            {
+                name: 'Registration Form',
+                link: './registrationForm.html'
+            }
+        ]
     }
 ];
 
@@ -52,17 +61,39 @@ $(document).ready(function() {
     $navItems.append($brand);
     var $ul = $("<ul/>", { class: 'navbar-nav mr-auto mt-2 mt-lg-0' })
     $.each(appNavJson, function(index, item) {
-        var $anchor = $("<a/>", {
-            href: item.link,
-            class: 'nav-link',
-            text: item.name
-        });
+        if (item.hasOwnProperty('links')) {
+            var $anchorTitle = $("<a/>", {
+                href: '#',
+                class: 'nav-link dropdown-toggle',
+                'data-toggle': 'dropdown',
+                role: 'button',
+                'aria-haspopup': 'true',
+                'aria-expanded': 'false',
+                text: item.name
+            });
+            var $div = $("<div/>", { class: 'dropdown-menu' });
+            $.each(item.links, function(linkIndex, linkItem) {
+                $div.append($("<a/>", { class: 'dropdown-item', href: linkItem.link, text: linkItem.name}))
+            });
+            var $li = $("<li/>", { class: 'nav-item dropdown' });
 
-        var $li = $("<li/>", {
-            class: 'nav-item'
-        }).append($anchor);
+            $li.append($anchorTitle);
+            $li.append($div);
 
-        $ul.append($li);
+            $ul.append($li);
+        } else {
+            var $anchor = $("<a/>", {
+                href: item.link,
+                class: 'nav-link',
+                text: item.name
+            });
+
+            var $li = $("<li/>", {
+                class: 'nav-item'
+            }).append($anchor);
+
+            $ul.append($li);
+        }
     });
     $navItems.append($ul);
     var $form = $("<form/>", { class: 'form-inline my-2 my-lg-0' });
